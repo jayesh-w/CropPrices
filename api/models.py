@@ -6,23 +6,27 @@ from django.db import models
 
 
 class DailyPrice(models.Model):
-	name = models.CharField(max_length=100)
-	measure = models.CharField(max_length=100)
-	arrival = models.CharField(max_length=100)
-	commodity = models.CharField(max_length=100)
-	min_price = models.IntegerField()
-	max_price = models.IntegerField()
-	avg_price = models.IntegerField()
+	name = models.CharField(max_length=100,default="NULL")
+	measure = models.CharField(max_length=100,default="NULL")
+	arrival = models.CharField(max_length=100,default="NULL")
+	commodity = models.CharField(max_length=100,default="NULL")
+	min_price = models.IntegerField(default=0)
+	max_price = models.IntegerField(default=0)
+	avg_price = models.IntegerField(default=0)
 
 
 class SelectedPrice(models.Model):
-	name = models.CharField(max_length=100)
-	measure = models.CharField(max_length=100)
-	arrival = models.CharField(max_length=100)
-	date = models.DateField(max_length=100)
-	min_price = models.IntegerField()
-	max_price = models.IntegerField()
-	avg_price = models.IntegerField()
+	name = models.CharField(max_length=100, default="NULL")
+	measure = models.CharField(max_length=100, default="NULL")
+	arrival = models.CharField(max_length=100, default="NULL")
+	date = models.DateField(max_length=100, default="NULL")
+	min_price = models.IntegerField(default=0)
+	max_price = models.IntegerField(default=0)
+	avg_price = models.IntegerField(default=0)
+
+class DailyPriceLog(models.Model):
+	date = models.CharField(max_length=100, default="NULL")
+	result = models.CharField(max_length=100, default="NULL")
 
 
 

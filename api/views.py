@@ -28,11 +28,14 @@ def dailyprice(request):
 	#return the dictionary
 
 	result = [] #result list 
+	all_prices = DailyPrice.objects.all();
 	daily_price_dict = {'name':'Onion','measure':'Quintal','min_price':10,'max_price':12,'avg_price':11,'commodity_number':4062}
-	result.append(daily_price_dict)
-	# final_result = {'date':'18 December 2021','size':1,'result':result}
+	# result.append(daily_price_dict)
+	final_result = {'date':'22 January 2021','size':len(all_prices),'result':result}
 	
-
+	for obj in all_prices: 
+		new_dict = {'name':obj.name,'measure':obj.measure,'commodity_number':obj.commodity,'arrival':obj.arrival,'min_price':obj.min_price,'max_price':obj.max_price,'avg_price':obj.avg_price}
+		result.append(new_dict)
 
 	final_result['result'] = result
 	return JsonResponse(final_result)

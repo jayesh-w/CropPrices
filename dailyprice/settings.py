@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-n-*f9ojmwm9%vhx75t+8#cvig($@7(v4bux$2(4(+(tog25!9%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['farmos-api.herokuapp.com']
 
 
 # Application definition

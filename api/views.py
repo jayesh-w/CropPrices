@@ -15,6 +15,10 @@ from django.db import connection
 import datetime
 import tabula
 from api.models import DailyPrice,DailyPriceLog
+import pickle
+import time 
+import sklearn
+import os
 # Create your views here.
 
 
@@ -31,7 +35,7 @@ def dailyprice(request):
 	all_prices = DailyPrice.objects.all();
 	daily_price_dict = {'name':'Onion','measure':'Quintal','min_price':10,'max_price':12,'avg_price':11,'commodity_number':4062}
 	# result.append(daily_price_dict)
-	final_result = {'date':'22 January 2021','size':len(all_prices),'result':result}
+	final_result = {'date':'02 February 2021','size':len(all_prices),'result':result}
 	
 	for obj in all_prices: 
 		new_dict = {'name':obj.name,'measure':obj.measure,'commodity_number':obj.commodity,'arrival':obj.arrival,'min_price':obj.min_price,'max_price':obj.max_price,'avg_price':obj.avg_price}
@@ -117,8 +121,22 @@ def cropprice(request):
 	# the model will return the crop price prediction for 7 days 
 	# only for 10 valid crops 
 	# return type will be JsonResponse
+	response = {}
+	response['success'] = True
+	response['onion'] = []
+	unix = int(time.time())
+	date_list = [unix]
+	for i in range(2,8):
+		date_list.append(unix + 86400*i)
+	onion = os.path.join(os.path.dirname(__file__), 'onion.sav')
+	model = pickle.load(open(onion,'rb'))
+	final_ans = []
+	for x in date_list:	
+		k = model.predict([[x,100]])
+		final_ans.append(k[0].tolist())
+	response['onion'] = final_ans
 
-	return JsonResponse({'result':'success'})
+	return JsonResponse(response)
 
 
 

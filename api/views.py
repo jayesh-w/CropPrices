@@ -123,7 +123,7 @@ def cropprice(request):
 	# return type will be JsonResponse
 	response = {}
 	response['success'] = True
-	response['onion'] = []
+	response['onion'] = {}
 	unix = int(time.time())
 	date_list = [unix]
 	for i in range(2,8):
@@ -134,7 +134,17 @@ def cropprice(request):
 	for x in date_list:	
 		k = model.predict([[x,100]])
 		final_ans.append(k[0].tolist())
-	response['onion'] = final_ans
+	final_r = {}
+	d = 1
+	for y in final_ans:
+		this_day = "day-"+str(d)
+		temp = {}
+		temp['min_price'] = y[0]
+		temp['max_price'] = y[1]
+		temp['avg_price'] = y[2]
+		final_r[this_day] = temp
+		d = d +1 
+	response['onion'] = final_r
 
 	return JsonResponse(response)
 

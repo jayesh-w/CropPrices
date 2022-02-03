@@ -137,7 +137,7 @@ def cropprice(request):
 	final_r = {}
 	d = 1
 	for y in final_ans:
-		this_day = "day-"+str(d)
+		this_day = "day"+str(d)
 		temp = {}
 		temp['min_price'] = y[0]
 		temp['max_price'] = y[1]

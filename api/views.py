@@ -135,10 +135,12 @@ def cropprice(request):
 		k = model.predict([[x,100]])
 		final_ans.append(k[0].tolist())
 	final_r = []
-	d = 1
+	d = 0
+	presentday = datetime.now()
 	for y in final_ans:
-		this_day = "day"+str(d)
+		date = presentday + timedelta(d)
 		temp = {}
+		temp['date'] = date.strftime('%d-%m-%Y')
 		temp['min_price'] = y[0]
 		temp['max_price'] = y[1]
 		temp['avg_price'] = y[2]

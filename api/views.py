@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse,FileResponse
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.db import connection
-import datetime
+from datetime import datetime, timedelta
 import tabula
 from api.models import DailyPrice,DailyPriceLog
 import pickle

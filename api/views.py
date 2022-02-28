@@ -124,17 +124,40 @@ def cropprice(request):
 	response = {}
 	response['success'] = True
 	response['onion'] = []
+	response['potato'] = []
+	response['garlic'] = []
+	response['methi'] = []
 	unix = int(time.time())
 	date_list = [unix]
 	for i in range(2,8):
 		date_list.append(unix + 86400*i)
 	onion = os.path.join(os.path.dirname(__file__), 'onion.sav')
+	potato = os.path.join(os.path.dirname(__file__), 'potato.sav')
+	garlic = os.path.join(os.path.dirname(__file__), 'garlic.sav')
+	methi = os.path.join(os.path.dirname(__file__), 'methi.sav')
 	model = pickle.load(open(onion,'rb'))
+	model2 = pickle.load(open(potato,'rb'))
+	model3 = pickle.load(open(garlic,'rb'))
+	model4 = pickle.load(open(methi,'rb'))
 	final_ans = []
+	final_ans_p = []
+	final_ans_g = []
+	final_ans_m = []
+
 	for x in date_list:	
 		k = model.predict([[x,100]])
+		l = model2.predict([[x,100]])
+		m = model3.predict([[x,100]])
+		o = model4.predict([[x,100]])
 		final_ans.append(k[0].tolist())
+		final_ans_p.append(l[0].tolist())
+		final_ans_g.append(m[0].tolist())
+		final_ans_m.append(o[0].tolist())
 	final_r = []
+	final_p = []
+	final_g = []
+	final_m = []
+
 	d = 0
 	presentday = datetime.now()
 	for y in final_ans:
@@ -146,12 +169,37 @@ def cropprice(request):
 		temp['avg_price'] = y[2]
 		final_r.append(temp)
 		d = d +1 
+	for y in final_ans_p:
+		date = presentday + timedelta(d)
+		temp = {}
+		temp['date'] = date.strftime('%d-%m-%Y')
+		temp['min_price'] = y[0]
+		temp['max_price'] = y[1]
+		temp['avg_price'] = y[2]
+		final_p.append(temp)
+		d = d +1
+	for y in final_ans_g:
+		date = presentday + timedelta(d)
+		temp = {}
+		temp['date'] = date.strftime('%d-%m-%Y')
+		temp['min_price'] = y[0]
+		temp['max_price'] = y[1]
+		temp['avg_price'] = y[2]
+		final_g.append(temp)
+		d = d +1
+	for y in final_ans_m:
+		date = presentday + timedelta(d)
+		temp = {}
+		temp['date'] = date.strftime('%d-%m-%Y')
+		temp['min_price'] = y[0]
+		temp['max_price'] = y[1]
+		temp['avg_price'] = y[2]
+		final_m.append(temp)
+		d = d +1
 	response['onion'] = final_r
+	response['potato'] = final_p
+	response['garlic'] = final_g
+	response['methi'] = final_m
+
 
 	return JsonResponse(response)
-
-
-
-
-
-

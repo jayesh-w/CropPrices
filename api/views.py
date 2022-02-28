@@ -169,6 +169,7 @@ def cropprice(request):
 		temp['avg_price'] = y[2]
 		final_r.append(temp)
 		d = d +1 
+	d = 0
 	for y in final_ans_p:
 		date = presentday + timedelta(d)
 		temp = {}
@@ -178,6 +179,7 @@ def cropprice(request):
 		temp['avg_price'] = y[2]
 		final_p.append(temp)
 		d = d +1
+	d = 0
 	for y in final_ans_g:
 		date = presentday + timedelta(d)
 		temp = {}
@@ -187,6 +189,7 @@ def cropprice(request):
 		temp['avg_price'] = y[2]
 		final_g.append(temp)
 		d = d +1
+	d = 0
 	for y in final_ans_m:
 		date = presentday + timedelta(d)
 		temp = {}

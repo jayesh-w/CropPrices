@@ -58,7 +58,7 @@ def activateprice(request):
 		cursor.execute("DELETE FROM api_dailyprice")
 
 	url = staticfiles_storage.path('dailyrates.pdf')
-	x = datetime.datetime.now()
+	x = datetime.now()
 	date = x.strftime("%d %B %Y")
 	# TABULA PY CODE 
 
